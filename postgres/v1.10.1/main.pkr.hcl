@@ -7,7 +7,7 @@ packer {
   }
 }
 
-source "docker" "percona-mongodb-server" {
+source "docker" "percona-postgres-server" {
   image  = "ubuntu:jammy"  # Adjust the base image according to your requirements
   commit = true
   volumes = {
@@ -30,14 +30,14 @@ variable "git_token" {
   type    = string
   default = ""
 }
-variable "mongodb_version" {
+variable "postgres_version" {
   type    = string
   default = ""
 }
 build {
-  name = "Percona-MongoDB-server-Image"
+  name = "Percona-postgres-server-Image"
   sources = [
-    "source.docker.percona-mongodb-server"
+    "source.docker.percona-postgres-server"
   ]
 
 
@@ -45,24 +45,27 @@ build {
     inline = [
       "apt-get update",
       "DEBIAN_FRONTEND=noninteractive apt-get install -y curl wget jq ca-certificates git gnupg lsb-release sudo software-properties-common",
-      "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -",
-      "sudo add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\"",
-      "sudo apt-get update",
-      "sudo apt-get install -y docker.io",
-      "sudo apt install docker-buildx",
-      "rm -rf percona-docker",
-      "git clone https://avnshrai:${var.git_token}@github.com/coredgeio/percona-server-mongodb.git",
-      "cd percona-server-mongodb/percona-server-mongodb-${var.mongodb_version}",
-      "docker build -t coredgeio/mongodb-server:${var.tag} ." ,
-      "docker tag coredgeio/mongodb-server:${var.tag} coredgeio/mongodb-server:latest",
+      "wget https://go.dev/dl/go1.22.2.linux-amd64.tar.gz",
+      "sudo tar -C /usr/local -xzf go1.22.2.linux-amd64.tar.gz",
+      "export PATH=$PATH:/usr/local/go/bin",
+      "source ~/.bashrc",
+      "go version",
+      "export GOPATH=~/go",
+      "mkdir -p ${GOPATH}/src/github.com/zalando/",
+      "cd ${GOPATH}/src/github.com/zalando/",
+      "git clone https://github.com/zalando/postgres-operator.git",
+      "make deps",
+      "export TAG=postgres-operator${var.tag}",
+      "make docker",
+      "docker tag avnshrai/postgres-operator:${var.tag} avnshrai/postgres-operator:latest",
       "docker login -u ${var.docker_username} -p ${var.docker_password}",
-      "docker push coredgeio/mongodb-server:${var.tag}",
-      "docker push coredgeio/mongodb-server:latest",
+      "docker push avnshrai/postgres-operator:${var.tag}",
+      "docker push avnshrai/postgres-operator:latest",
     ]
   }
 
   post-processor "docker-tag" {
-    repository = "coredgeio/server-mongodb"  # Adjust repository name as needed
+    repository = "avnshrai/postgres-operator"  # Adjust repository name as needed
     tags       = ["latest"]
   }
 }

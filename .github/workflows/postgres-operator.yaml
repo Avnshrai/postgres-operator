@@ -6,17 +6,17 @@ on:
       docker_username:
         description: 'dockerhub username'
         required: true
-        default: 'kubedrona'
+        default: 'avnshrai'
       image_repo:
         description: 'dockerhub repo ex:- coredgeio/percona:latest'
         required: true
-        default: 'coredgeio/percona-operator-mongodb:latest'
+        default: 'avnshrai/postgres-operator:latest'
 
 env:
   PACKER_VERSION: "latest"
-  APP_NAME: "percona-operator-mongodb"
-  APP_VERSION: "v1.14.0"
-  DST_DIR: "mongodb-operator/v1.14.0"
+  APP_NAME: "postgres-operator"
+  APP_VERSION: "v1.10.1"
+  DST_DIR: "postgres-operator/v1.10.1"
 
 jobs:
   packer:
