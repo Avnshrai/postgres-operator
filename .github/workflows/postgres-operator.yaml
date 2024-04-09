@@ -1,4 +1,4 @@
-name: mongodb operator Packer Image CI Build
+name: postgres operator Packer Image CI Build
 
 on: 
  workflow_dispatch: 
@@ -8,7 +8,7 @@ on:
         required: true
         default: 'avnshrai'
       image_repo:
-        description: 'dockerhub repo ex:- coredgeio/percona:latest'
+        description: 'dockerhub repo ex:- avnshrai/postgres-operator:latest'
         required: true
         default: 'avnshrai/postgres-operator:latest'
 
