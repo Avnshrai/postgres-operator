@@ -36,7 +36,7 @@ jobs:
           version: ${{ env.PACKER_VERSION }}
       
       - name: Prepare image tag
-        run: echo "TAG=$(date +'%F')" >> $GITHUB_ENV  
+        run: echo "TAG=$(date +'%F-%H-%M')" >> $GITHUB_ENV  
           
       - name: Run `packer init`
         id: init
