@@ -65,6 +65,7 @@ build {
       "cd postgres-operator",
       "make deps",
       "export TAG=postgres-operator${var.tag}",
+      "export IMAGE=avnshrai/postgres-operator"
       "make docker",
       "docker tag avnshrai/postgres-operator:${var.tag} avnshrai/postgres-operator:latest",
       "docker login -u ${var.docker_username} -p ${var.docker_password}",
