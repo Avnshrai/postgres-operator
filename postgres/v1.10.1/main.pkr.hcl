@@ -67,10 +67,10 @@ build {
       "export TAG=postgres-operator${var.tag}",
       "export IMAGE=avnshrai/postgres-operator",
       "make docker",
-      "docker tag avnshrai/postgres-operator:${var.tag} avnshrai/postgres-operator:latest",
+      "docker tag docker.io/avnshrai/postgres-operator:${var.tag} avnshrai/postgres-operator:latest",
       "docker login -u ${var.docker_username} -p ${var.docker_password}",
       "docker push avnshrai/postgres-operator:${var.tag}",
-      "docker push avnshrai/postgres-operator:latest",
+      "docker push docker.io/avnshrai/postgres-operator:latest",
     ]
   }
 
