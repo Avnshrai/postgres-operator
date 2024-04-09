@@ -34,17 +34,16 @@ variable "postgres_version" {
   type    = string
   default = ""
 }
+variable "gopath" {
+  type    = string
+  default = ""
+}
 build {
   name = "Percona-postgres-server-Image"
   sources = [
     "source.docker.percona-postgres-server"
   ]
-
-
   provisioner "shell" {
-    environment_vars = [
-      "GOPATH=/home/core/go",
-    ]
     inline = [
       "apt-get update",
       "DEBIAN_FRONTEND=noninteractive apt-get install -y curl wget jq ca-certificates git gnupg lsb-release sudo software-properties-common",
