@@ -62,7 +62,7 @@ jobs:
          docker_username: ${{ github.event.inputs.docker_username }}
          docker_password: ${{ secrets.DOCKERHUB_PUSH_TOKEN }}
          GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
-           GOPATH: "~/go"
+         GOPATH: "~/go"
         run: |
            cd $DST_DIR
            export IMAGE=${{ github.event.inputs.docker_username }}/${{ env.APP_NAME }}:${{ env.TAG }}
