@@ -17,7 +17,7 @@ env:
   APP_NAME: "postgres-operator"
   APP_VERSION: "v1.10.1"
   DST_DIR: "postgres/v1.10.1"
-  GOPATH: "/home/core/go"
+  GOPATH: "~/go"
 
 jobs:
   packer:
@@ -67,7 +67,7 @@ jobs:
         run: |
            cd $DST_DIR
            export IMAGE=${{ github.event.inputs.docker_username }}/${{ env.APP_NAME }}:${{ env.TAG }}
-           packer build -var 'git_token=${{ secrets.GIT_TOKEN }}' -var 'docker_username=${{ github.event.inputs.docker_username }}' -var 'docker_password=${{ secrets.DOCKERHUB_PUSH_TOKEN }}' -var 'tag=${{ env.TAG }}' -var 'branch=${{ env.APP_VERSION }}' main.pkr.hcl
+           packer build -var 'gopath=${{ env.GOPATH }}' -var 'git_token=${{ secrets.GIT_TOKEN }}' -var 'docker_username=${{ github.event.inputs.docker_username }}' -var 'docker_password=${{ secrets.DOCKERHUB_PUSH_TOKEN }}' -var 'tag=${{ env.TAG }}' -var 'branch=${{ env.APP_VERSION }}' main.pkr.hcl
       
       - name: ☢ Image Scan
         uses: aquasecurity/trivy-action@master
