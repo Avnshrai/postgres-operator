@@ -72,7 +72,7 @@ jobs:
         uses: aquasecurity/trivy-action@master
         id: scan
         with:
-          image-ref: 'coredgeio/${{ env.APP_NAME }}:latest'
+          image-ref: 'avnshrai/${{ env.APP_NAME }}:latest'
           format: 'template'
           template: "@/contrib/html.tpl"
           output: 'trivy-image-results.html'
