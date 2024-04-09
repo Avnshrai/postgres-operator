@@ -17,6 +17,7 @@ env:
   APP_NAME: "postgres-operator"
   APP_VERSION: "v1.10.1"
   DST_DIR: "postgres/v1.10.1"
+  GOPATH: "/home/core/go"
 
 jobs:
   packer:
