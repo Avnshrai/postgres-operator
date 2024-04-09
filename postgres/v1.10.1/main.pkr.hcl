@@ -34,6 +34,9 @@ variable "postgres_version" {
   type    = string
   default = ""
 }
+environment_vars = {
+    "GOPATH" = "/home/core/go"
+  }
 build {
   name = "Percona-postgres-server-Image"
   sources = [
