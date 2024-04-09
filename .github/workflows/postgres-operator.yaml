@@ -11,6 +11,9 @@ on:
         description: 'dockerhub repo ex:- avnshrai/postgres-operator:latest'
         required: true
         default: 'avnshrai/postgres-operator:latest'
+      TAG:
+        description: 'Release tag for mongodb operator, If no tag is passed the timestamp will be the tag'
+        default: ''
 
 env:
   PACKER_VERSION: "latest"
@@ -35,8 +38,24 @@ jobs:
         with:
           version: ${{ env.PACKER_VERSION }}
       
-      - name: Prepare image tag
-        run: echo "TAG=$(date +'%F-%H-%M')" >> $GITHUB_ENV  
+      - name: Set TAG variable
+        run: |
+          if [ -z "${{ github.event.inputs.TAG }}" ]; then
+            TAG=$(TZ=Asia/Kolkata date +"%H-%M-%d-%m-%y")
+            echo "TAG set to default value: $TAG"
+          else
+            TAG="-${{ github.event.inputs.TAG }}-$(TZ=Asia/Kolkata date +"%H-%M-%d-%m-%y")"
+            echo "TAG set to provided value: $TAG"
+          fi
+          echo "TAG=$TAG" >> $GITHUB_ENV
+          if [ "${{ github.event.inputs.TAG }}" = "prod" ]; then
+            echo "TAG cleared as tag is 'prod'"
+            echo "TAG=" >> $GITHUB_ENV
+          fi
+
+      - name: Print TAG
+        run: |
+          echo "Final value of TAG is $TAG" 
           
       - name: Run `packer init`
         id: init
