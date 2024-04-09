@@ -64,13 +64,13 @@ build {
       "git clone https://github.com/zalando/postgres-operator.git",
       "cd postgres-operator",
       "make deps",
-      "export TAG=postgres-operator${var.tag}",
+      "export TAG=${var.tag}",
       "export IMAGE=avnshrai/postgres-operator",
       "make docker",
-      "docker tag docker.io/avnshrai/postgres-operator:${var.tag} avnshrai/postgres-operator:latest",
+      "docker tag avnshrai/postgres-operator:${var.tag} avnshrai/postgres-operator:latest",
       "docker login -u ${var.docker_username} -p ${var.docker_password}",
       "docker push avnshrai/postgres-operator:${var.tag}",
-      "docker push docker.io/avnshrai/postgres-operator:latest",
+      "docker push avnshrai/postgres-operator:latest",
     ]
   }
 
