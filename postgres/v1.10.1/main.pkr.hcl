@@ -60,6 +60,7 @@ build {
       "mkdir -p ${var.gopath}/src/github.com/zalando/",
       "cd ${var.gopath}/src/github.com/zalando/",
       "git clone https://github.com/zalando/postgres-operator.git",
+      "cd postgres-operator",
       "make deps",
       "export TAG=postgres-operator${var.tag}",
       "make docker",
