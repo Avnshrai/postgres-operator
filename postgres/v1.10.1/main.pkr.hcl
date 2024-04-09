@@ -50,7 +50,7 @@ build {
   provisioner "shell" {
     inline = [
       "apt-get update",
-      "DEBIAN_FRONTEND=noninteractive apt-get install -y curl wget jq ca-certificates git gnupg lsb-release sudo software-properties-common",
+      "DEBIAN_FRONTEND=noninteractive apt-get install -y make curl wget jq ca-certificates git gnupg lsb-release sudo software-properties-common",
       "wget https://go.dev/dl/go1.22.2.linux-amd64.tar.gz",
       "sudo tar -C /usr/local -xzf go1.22.2.linux-amd64.tar.gz",
       "export PATH=$PATH:/usr/local/go/bin",
