@@ -38,6 +38,10 @@ variable "gopath" {
   type    = string
   default = ""
 }
+variable "branch" {
+  type    = string
+  default = ""
+}
 build {
   name = "Percona-postgres-server-Image"
   sources = [
