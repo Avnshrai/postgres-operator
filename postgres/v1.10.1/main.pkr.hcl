@@ -68,6 +68,7 @@ build {
       "make docker",
       "[ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64",
       "chmod +x ./kind && sudo cp ./kind /usr/local/bin/kind",
+      "kind create cluster --name postgres-test"
       "kind load docker-image avnshrai/postgres-operator:${var.tag} --name postgres-test",
       "docker tag avnshrai/postgres-operator:${var.tag} avnshrai/postgres-operator:latest",
       "docker login -u ${var.docker_username} -p ${var.docker_password}",
