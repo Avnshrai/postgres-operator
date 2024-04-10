@@ -67,7 +67,7 @@ build {
       "export IMAGE=avnshrai/postgres-operator",
       "make docker",
       "go install sigs.k8s.io/kind@v0.22.0",
-      "kind load docker-image avnshrai/postgres-operator:${var.TAG} --name postgres-test",
+      "kind load docker-image avnshrai/postgres-operator:${var.tag} --name postgres-test",
       "docker tag avnshrai/postgres-operator:${var.tag} avnshrai/postgres-operator:latest",
       "docker login -u ${var.docker_username} -p ${var.docker_password}",
       "docker push avnshrai/postgres-operator:${var.tag}",
