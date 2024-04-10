@@ -68,7 +68,7 @@ build {
       "make docker",
       "[ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64",
       "chmod +x ./kind && sudo cp ./kind /usr/local/bin/kind",
-      "kind create cluster --name postgres-test",
+      "if kind get clusters | grep -qw 'postgres-test'; then echo \"Cluster 'postgres-test' already exists.\"; else kind create cluster --name postgres-test; fi",
       "kind load docker-image avnshrai/postgres-operator:${var.tag} --name postgres-test",
       "curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3",
       "chmod 700 get_helm.sh",
